@@ -2,13 +2,14 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react'
 
 import LoginScreen from './LoginScreen'
+import LandingScreen from './LandingScreen'
 
 export class HomeScreen extends Component {
   render () {
     if (this.props.loggedIn === false) {
       return <LoginScreen />
     } else {
-      return <h1>Connected</h1>
+      return <LandingScreen />
     }
   }
 }

@@ -50,6 +50,7 @@ export class LoginScreen extends Component {
               InputProps={{ placeholder: 'foo@bar.com' }}
               margin='normal'
               fullWidth
+
             />
             <TextField
               onChange={(event) => { this.password = event.target.value }}
@@ -57,6 +58,7 @@ export class LoginScreen extends Component {
               type='password'
               margin='normal'
               fullWidth
+              onInvalid={() => alert('invalid')}
             />
             <Button type='submit' raised color='primary' style={style.button}>{loginState}</Button>
         </Paper>
