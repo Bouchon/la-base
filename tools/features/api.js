@@ -1,7 +1,6 @@
 import express from 'express'
 
 const router = new express.Router()
-
 router.post('/sessions', (req, res) => {
   setTimeout(() => {
     const [prefix] = req.body.email.split('@')
