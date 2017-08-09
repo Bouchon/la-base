@@ -1,7 +1,14 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 
+import ProjectCard from '../../components/ProjectCard'
 import Typography from 'material-ui/Typography'
+
+const style = {
+  projects: {
+    display: 'flex'
+  }
+}
 
 class IndexScreen extends Component {
   render () {
@@ -10,9 +17,12 @@ class IndexScreen extends Component {
     return (
       <div>
         <Typography type='display4'>Task Manager</Typography>
-        {projects.map((project) =>
-          <p key={project.id}>{project.name}</p>
-        )}
+
+        <div style={style.projects}>
+          {projects.map((project) =>
+            <ProjectCard key={project.id} project={project} />
+          )}
+        </div>
       </div>
     )
   }

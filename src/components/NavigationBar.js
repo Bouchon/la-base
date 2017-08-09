@@ -23,7 +23,11 @@ class NavigationBar extends Component {
     this.state = { menuOpen: false }
   }
   render () {
-    const { logOut } = this.props
+    const { logOut, user } = this.props
+    if (user.loginState !== 'success') {
+      return <div />
+    }
+
     return (
       <header>
         <AppBar position='static' color='default'>
