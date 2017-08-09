@@ -9,6 +9,31 @@ const DEFAULT_STATE = {
   user: {
     loginState: 'failure',
     email: ''
+  },
+
+  taskManager: {
+    users: [
+      { login: 'admin', name: 'Administrateur' },
+      { login: 'toto', name: 'Toto' },
+      { login: 'titi', name: 'Titi' }
+    ],
+    projects: [{
+      id: 0,
+      author: 'admin',
+      name: 'Premier projet',
+      description: 'Description',
+      startDate: null,
+      endDate: null,
+      documents: [] }],
+    tasks: [{
+      id: 0,
+      author: 'admin',
+      name: 'Première tache',
+      description: 'Description',
+      users: ['toto', 'titi'],
+      startDate: null,
+      endDate: null,
+      documents: []}]
   }
 }
 

@@ -3,15 +3,18 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import HomeScreen from './containers/HomeScreen'
-import Navigation from './components/Navigation'
+import TaskManagerScreen from './containers/TaskManager/IndexScreen'
+import PrivateRoute from './containers/PrivateRoute'
+import NavigationBar from './components/NavigationBar'
 import store from './store'
 
 const App = () => (
   <Provider store={store}>
     <Router>
       <div>
-        <Navigation />
-        <Route exact path='' component={HomeScreen} />
+        <NavigationBar />
+        <Route exact path='/' component={HomeScreen} />
+        <PrivateRoute exact path='/TaskManager' component={TaskManagerScreen} />
       </div>
     </Router>
   </Provider>
