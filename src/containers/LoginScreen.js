@@ -30,8 +30,7 @@ export class LoginScreen extends Component {
   @autobind
   login (event) {
     event.preventDefault()
-    console.log(this.userEmail, this.password)
-    this.props.dispatch(logIn(this.userEmail, this.password))
+    this.props.dispatch(logIn(this.logon, this.password))
   }
 
   render () {
@@ -44,10 +43,10 @@ export class LoginScreen extends Component {
         <Paper style={style.container} elevation={4}>
             <Typography type='title'>Login</Typography>
             <TextField
-              onChange={(event) => { this.userEmail = event.target.value }}
-              label='Label'
-              type='email'
-              InputProps={{ placeholder: 'foo@bar.com' }}
+              onChange={(event) => { this.logon = event.target.value }}
+              label='Login'
+              type='text'
+              InputProps={{ placeholder: 'Login' }}
               margin='normal'
               fullWidth
               required

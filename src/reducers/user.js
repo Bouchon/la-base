@@ -9,8 +9,8 @@ export default function currentUser (state = { loginState: 'logged-out' }, actio
       return { loginState: 'failure' }
 
     case LOGIN_SUCCESS: {
-      const { email } = action.payload
-      return { loginState: 'success', email }
+      const { logon } = action.payload
+      return { loginState: 'success', logon }
     }
 
     case LOGOUT:

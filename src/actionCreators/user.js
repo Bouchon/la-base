@@ -3,14 +3,14 @@ export const LOGIN_START = '@@GOALTRACKER/AUTH_LOGIN_START'
 export const LOGIN_SUCCESS = '@@GOALTRACKER/AUTH_LOGIN_SUCCESS'
 export const LOGOUT = '@@GOALTRACKER/AUTH_LOGOUT'
 
-export function logIn (email, password) {
-  const body = JSON.stringify({ email, password })
+export function logIn (logon, password) {
+  const body = JSON.stringify({ logon, password })
   return {
     type: LOGIN_START,
     meta: {
       offline: {
         effect: { url: '/api/v1/sessions', method: 'POST', body },
-        commit: { type: LOGIN_SUCCESS, payload: { email } },
+        commit: { type: LOGIN_SUCCESS, payload: { logon } },
         rollback: { type: LOGIN_FAILURE }
       }
     }
@@ -25,8 +25,8 @@ export function logInStart () {
   return { type: LOGIN_START }
 }
 
-export function logInSuccess (email) {
-  return { type: LOGIN_SUCCESS, payload: { email } }
+export function logInSuccess (logon) {
+  return { type: LOGIN_SUCCESS, payload: { logon } }
 }
 
 export function logOut () {

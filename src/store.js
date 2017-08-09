@@ -8,33 +8,41 @@ import laBaseReducer from './reducers/laBase'
 const DEFAULT_STATE = {
   user: {
     loginState: 'failure',
-    email: ''
+    logon: ''
   },
-
-  taskManager: {
-    users: [
+/*
+  users: [
       { login: 'admin', name: 'Administrateur' },
       { login: 'toto', name: 'Toto' },
       { login: 'titi', name: 'Titi' }
-    ],
-    projects: [{
-      id: 0,
-      author: 'admin',
-      name: 'Premier projet',
-      description: 'Description',
-      startDate: null,
-      endDate: null,
-      documents: [] }],
-    tasks: [{
-      id: 0,
-      author: 'admin',
-      name: 'Première tache',
-      description: 'Description',
-      users: ['toto', 'titi'],
-      startDate: null,
-      endDate: null,
-      documents: []}]
-  }
+  ],*/
+
+  projects: [{
+    id: 0,
+    author: 'admin',
+    name: 'Premier projet',
+    description: 'Description',
+    startDate: null,
+    endDate: null,
+    documents: []
+  }, {
+    id: 2,
+    author: 'admin',
+    name: 'Second projet',
+    description: 'Description',
+    startDate: null,
+    endDate: null,
+    documents: []
+  }]
+  /* tasks: [{
+    id: 0,
+    author: 'admin',
+    name: 'Première tache',
+    description: 'Description',
+    users: ['toto', 'titi'],
+    startDate: null,
+    endDate: null,
+    documents: []}]*/
 }
 
 const reduxOfflineConfig = {
