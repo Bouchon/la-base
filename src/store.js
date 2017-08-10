@@ -33,6 +33,14 @@ const DEFAULT_STATE = {
     startDate: null,
     endDate: null,
     documents: []
+  }, {
+    id: 3,
+    author: 'admin',
+    name: 'Troisième projet',
+    description: 'Description',
+    startDate: null,
+    endDate: null,
+    documents: []
   }]
   /* tasks: [{
     id: 0,

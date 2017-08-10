@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
-import Card, { CardContent } from 'material-ui/Card'
-import Typography from 'material-ui/Typography'
+
+import { ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction } from 'material-ui/List'
+import Avatar from 'material-ui/Avatar'
+import IconButton from 'material-ui/IconButton'
+import FolderIcon from 'material-ui-icons/Folder'
+import GroupIcon from 'material-ui-icons/Group'
+import ChatIcon from 'material-ui-icons/Chat'
+import TodayIcon from 'material-ui-icons/Today'
+
+import Tooltip from './Tooltip'
 
 const style = {
-  card: {
-    display: 'flex'
-  },
   cover: {
-    width: '128px',
-    height: '128px',
-    overflow: 'hidden'
+    width: '64px',
+    height: '64px',
+    borderRadius: '32px'
+  },
+  icon: {
+    width: '32px',
+    height: '32px'
   }
 }
 
@@ -17,17 +26,18 @@ class ProjectCard extends Component {
   render () {
     const { project } = this.props
     return (
-      <Card style={style.card}>
-        <div style={style.cover}>
-          <img src='https://s-media-cache-ak0.pinimg.com/736x/cc/3f/6f/cc3f6f144d0944e7b43eac23b8c8aef1--kawaii-marshmallow-marshmallow-treats.jpg' />
-        </div>
-        <div>
-          <CardContent>
-            <Typography type='headline'>{project.name}</Typography>
-            <Typography type='subheading'>{project.author}</Typography>
-          </CardContent>
-        </div>
-      </Card>
+      <ListItem button>
+        <ListItemAvatar>
+          <Avatar style={style.cover} src='https://fakeimg.pl/64' />
+        </ListItemAvatar>
+        <ListItemText primary={project.name} secondary={project.author} />
+        <ListItemSecondaryAction>
+          <IconButton><Tooltip><GroupIcon style={style.icon} /></Tooltip></IconButton>
+          <IconButton><Tooltip><FolderIcon style={style.icon} /></Tooltip></IconButton>
+          <IconButton><Tooltip><ChatIcon style={style.icon} /></Tooltip></IconButton>
+          <IconButton><Tooltip><TodayIcon style={style.icon} /></Tooltip></IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
     )
   }
 }
