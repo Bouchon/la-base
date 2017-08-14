@@ -3,7 +3,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import HomeScreen from './containers/HomeScreen'
-import TaskManagerScreen from './containers/TaskManager/IndexScreen'
+import TaskManagerScreen from './containers/TaskManagerScreen'
 import PrivateRoute from './containers/PrivateRoute'
 import NavigationBar from './components/NavigationBar'
 import store from './store'

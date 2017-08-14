@@ -21,23 +21,23 @@ const DEFAULT_STATE = {
     id: 0,
     author: 'admin',
     name: 'Premier projet',
-    description: 'Description',
+    description: 'Procedente igitur mox tempore cum adventicium nihil inveniretur, relicta ora maritima in Lycaoniam adnexam Isauriae se contulerunt ibique densis intersaepientes itinera praetenturis provincialium et viatorum opibus pascebantur.',
+    startDate: null,
+    endDate: null,
+    documents: []
+  }, {
+    id: 1,
+    author: 'admin',
+    name: 'Second projet',
+    description: 'Siquis enim militarium vel honoratorum aut nobilis inter suos rumore tenus esset insimulatus fovisse partes hostiles, iniecto onere catenarum in modum beluae trahebatur et inimico urgente vel nullo, quasi sufficiente hoc solo, quod nominatus esset aut delatus aut postulatus, capite vel multatione bonorum aut insulari solitudine damnabatur.',
     startDate: null,
     endDate: null,
     documents: []
   }, {
     id: 2,
     author: 'admin',
-    name: 'Second projet',
-    description: 'Description',
-    startDate: null,
-    endDate: null,
-    documents: []
-  }, {
-    id: 3,
-    author: 'admin',
     name: 'Troisième projet',
-    description: 'Description',
+    description: 'Quam ob rem ut ii qui superiores sunt submittere se debent in amicitia, sic quodam modo inferiores extollere. Sunt enim quidam qui molestas amicitias faciunt, cum ipsi se contemni putant; quod non fere contingit nisi iis qui etiam contemnendos se arbitrantur; qui hac opinione non modo verbis sed etiam opere levandi sunt.',
     startDate: null,
     endDate: null,
     documents: []
