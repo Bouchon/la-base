@@ -36,9 +36,12 @@ const style = {
 
 class ProjectListItem extends Component {
 
-    state = { expanded: false };
+    constructor () {
+        super()
+        this.state = { expanded: false };
+    }
 
-    handleExpandClick = (event) => {
+    handleExpandClick (event) {
         event.preventDefault()
         this.setState({ expanded: !this.state.expanded })
     }
