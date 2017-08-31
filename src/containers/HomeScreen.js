@@ -1,22 +1,11 @@
-import { connect } from 'react-redux'
 import React, { Component } from 'react'
 
-import LoginScreen from './LoginScreen'
-import LandingScreen from './LandingScreen'
-import TaskManagerScreen from './TaskManagerScreen'
+import Typography from 'material-ui/Typography'
 
 export class HomeScreen extends Component {
   render () {
-    if (this.props.loggedIn === false) {
-      return <LoginScreen />
-    } else {
-      return <TaskManagerScreen />
-    }
+    return <Typography type='display4'>Home</Typography>
   }
 }
 
-function mapStateToProps ({ user: { loginState } }) {
-  return { loggedIn: loginState === 'success' }
-}
-
-export default connect(mapStateToProps)(HomeScreen)
+export default HomeScreen

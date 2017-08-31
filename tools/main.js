@@ -21,7 +21,7 @@ app.use(renderer)
 
 server.listen(process.env.PORT || 3000, () => {
   console.log(
-    'ðŸ‘  Development server listening on'.green,
+    '⚡ Development server listening on'.green,
     `http://localhost:${server.address().port}`.yellow.underline,
     '\n'
   )

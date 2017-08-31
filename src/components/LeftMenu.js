@@ -8,23 +8,25 @@ import HomeIcon from 'material-ui-icons/Home'
 
 class LeftMenu extends Component {
   render () {
+    const { type, open, onClick } = this.props
+
     return (
-      <Drawer open={this.props.open} onRequestClose={this.props.onClose}>
-        <List disablePadding>
+      <Drawer type={type} open={open} onClick={onClick}>
+        <List disablePadding style={{width: '249px'}}>
           <Link to='/'>
-            <ListItem button onClick={() => this.setState({open: false})}>
+            <ListItem button>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary='Home' />
             </ListItem>
           </Link>
-          <Link to='/TaskManager'>
-            <ListItem button onClick={() => this.setState({open: false})}>
+          <Link to='/projects'>
+            <ListItem button>
               <ListItemIcon>
                 <EventNoteIcon />
               </ListItemIcon>
-              <ListItemText primary='Task Manager' />
+              <ListItemText primary='Projects' />
             </ListItem>
           </Link>
         </List>

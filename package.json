@@ -16,7 +16,6 @@
     "test:cov": "npm test -- --coverage",
     "test:watch": "npm test -- --watch"
   },
-
   "babel": {
     "presets": [
       [
@@ -46,15 +45,14 @@
       "ecmaVersion": 6,
       "sourceType": "module",
       "ecmaFeatures": {
-          "jsx": true
+        "jsx": true
       }
     }
   },
-
   "dependencies": {
     "autobind-decorator": "^2.1.0",
     "localforage": "^1.5.0",
-    "material-ui": "^1.0.0-beta.3",
+    "material-ui": "^1.0.0-beta.7",
     "material-ui-icons": "^1.0.0-alpha.19",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",

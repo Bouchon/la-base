@@ -12,6 +12,6 @@ router.get('*', (req, res) => {
   createReadStream(joinPaths(STATIC_PATH, 'index.html')).pipe(res)
 })
 
-console.log('ðŸ–¨  Deep-linking SPA renderer configured.'.green)
+console.log('⚡ Deep-linking SPA renderer configured.'.green)
 
 export default router

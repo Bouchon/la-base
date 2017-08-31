@@ -1,25 +1,20 @@
 import React, { Component } from 'react'
+import autobind from 'autobind-decorator'
 
 import Grid from 'material-ui/Grid'
 import Paper from 'material-ui/Paper'
 import Collapse from 'material-ui/transitions/Collapse'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
-import ExpandLessIcon from 'material-ui-icons/ExpandLess'
-import { deepPurple } from 'material-ui/colors'
+import MoreVertIcon from 'material-ui-icons/MoreVert'
 
-const style = {
-    selected: {
-        backgroundColor: deepPurple[500],
-        color: 'white'
-    },
-    unselected: {
-        backgroundColor: 'white'
-    },
+// https://material.io/color/#!/?view.left=0&view.right=0&primary.color=81D4FA&secondary.color=C5E1A5&secondary.text.color=1B5E20&primary.text.color=424242
+
+const css = {
     wrapper: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: '15px 0'
     },
     image: {
         borderRadius: '32px',
@@ -29,44 +24,23 @@ const style = {
         padding: '8px',
         color: 'inherit'
     },
-    expand: {
+    more: {
         marginLeft: 'auto'
     }
 }
 
 class ProjectListItem extends Component {
 
-    constructor () {
-        super()
-        this.state = { expanded: false };
-    }
-
-    handleExpandClick (event) {
-        event.preventDefault()
-        this.setState({ expanded: !this.state.expanded })
-    }
-
     render () {
-        const { project, selected, onSelect } = this.props
+        const { project } = this.props
         return (
-            <Paper style={selected ? style.selected : style.unselected} onClick={() => onSelect(project.id)}>
-                <div style={style.wrapper}>
-                    <img style={style.image} src='https://fakeimg.pl/64/' />
-                    <div style={style.content}>
-                        <Typography type='title'>{ project.name }</Typography>
-                        <Typography type='subheading'>{ project.author }</Typography>
-                    </div>
-                    <IconButton style={style.expand}
-                        onClick={this.handleExpandClick}
-                        aria-expanded={this.state.expanded}
-                        aria-label="Show more">
-                        { this.state.expanded ? <ExpandLessIcon /> : <ExpandMoreIcon /> }
-                    </IconButton>
+            <Paper style={css.wrapper}>
+                <img style={css.image} src='https://fakeimg.pl/64/' />
+                <div style={css.content}>
+                    <Typography type='title'>{ project.name }</Typography>
+                    <Typography type='subheading'>{ project.author }</Typography>
                 </div>
-
-                <Collapse style={style.content} in={this.state.expanded} transitionDuration='auto' unmountOnExit>
-                        <Typography paragraph>{ project.description }</Typography>
-                </Collapse>
+                <IconButton style={css.more}><MoreVertIcon /></IconButton>
             </Paper>
         )
     }
