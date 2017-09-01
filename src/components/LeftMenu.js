@@ -29,6 +29,14 @@ class LeftMenu extends Component {
               <ListItemText primary='Projects' />
             </ListItem>
           </Link>
+          <Link to='/project'>
+            <ListItem button>
+              <ListItemIcon>
+                <EventNoteIcon />
+              </ListItemIcon>
+              <ListItemText primary='Project' />
+            </ListItem>
+          </Link>
         </List>
       </Drawer>
     )

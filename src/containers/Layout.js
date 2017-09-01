@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import Grid from 'material-ui/Grid'
 import Hidden from 'material-ui/Hidden'
@@ -14,19 +15,16 @@ const css = {
     menu: { width: '250px', height: '100%', backgroundColor: 'white' },
     rightContent: { flexGrow: 1 },
     navigation: { height: '60px', backgroundColor: 'darkgray' },
-    main: { padding: '30px 2vw' }
+    main: { display: 'flex', justifyContent: 'center', padding: '30px 2vw' }
 }
 
 class Layout extends Component {
     render () {
-        if (this.props.loggedIn === false) {
-            return (
-                <div style={css.login}>
-                    <LoginScreen />
-                </div>
-            )
-        } else {
-            return (
+        if (!this.props.loggedIn) 
+            return <div style={css.login}><LoginScreen /></div>
+
+        return (
+            <Router>
                 <div style={css.layout}>
                     <Hidden mdDown>
                         <div style={css.menu}>
@@ -42,8 +40,8 @@ class Layout extends Component {
                         </div>
                     </div>
                 </div>
-            )
-        }
+            </Router>
+        )
     }
 }
 
