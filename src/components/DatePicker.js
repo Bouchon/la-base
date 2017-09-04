@@ -22,7 +22,7 @@ const locale = {
     blank: 'Aucune date sélectionnée',
     todayLabel: {
         long: "Aujourd'hui",
-        shord: 'Ajd.'
+        short: 'Ajd.'
     }
 }
 
@@ -44,17 +44,27 @@ class DatePicker extends Component {
     @autobind
     selectDate (date) {
         console.log(date)
-        this.setState({date: format(date, 'ddd Do MMM', { locale: frLocale })})
+        this.setState({date: format(date, 'ddd Do MMM YYYY', { locale: frLocale })})
         this.closeCalendar()
     }
 
     render () {
-        const { label } = this.props
+        const { label, date, onSelect } = this.props
         return (
             <div style={css.container}>
-                <Input disabled style={css.input} value={this.state.date} placeholder={label} onClick={this.openCalendar}></Input>
+                <Input disabled 
+                    style={css.input} 
+                    value={date} 
+                    placeholder={label}
+                    onClick={this.openCalendar}></Input>
                 <Dialog open={this.state.dialogOpen} onRequestClose={this.closeCalendar}>
-                    <InfiniteCalendar locale={locale} style={css.calendar} onSelect={this.selectDate}/>
+                    <InfiniteCalendar 
+                        locale={locale} 
+                        style={css.calendar} 
+                        onSelect={(date) => { 
+                            this.closeCalendar(); 
+                            onSelect(date)} 
+                        }/>
                 </Dialog>
             </div>
         )

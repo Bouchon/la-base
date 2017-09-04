@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
+import { format } from 'date-fns'
+import frLocale from 'date-fns/locale/fr'
 
 import Grid from 'material-ui/Grid'
 import Avatar from 'material-ui/Avatar'
@@ -15,7 +17,22 @@ const css = {
     datePicker: { display: 'flex', justifyContent: 'space-around', padding: '10px 0' }
 }
 
-class ProjectScreen extends Component {    
+class ProjectScreen extends Component {
+
+    constructor () {
+        super()
+        this.state = {
+            id: null,
+            name: '',
+            description: '',
+            startDate: '',
+            endDate: '',
+            users: []
+        }
+    }
+
+    formatDate (date) { return date === '' ? '' : format(date, 'ddd Do MMM YYYY', { locale: frLocale }) }
+
     render () {
         const { project, user } = this.props
         return (
@@ -24,11 +41,17 @@ class ProjectScreen extends Component {
                 <TextField label='Name' placeholder='Project name' margin='normal' />
                 <TextField label='Description' placeholder='Project description' margin='normal' multiline rows={3} />
                 <div style={css.datePicker}>
-                    <DatePicker label='Start date' />
-                    <DatePicker label='End date' />
+                    <DatePicker 
+                        label='Start date' 
+                        onSelect={(date) => this.setState({startDate: date})}
+                        date={this.formatDate(this.state.startDate)} />
+                    <DatePicker 
+                        label='End date' 
+                        onSelect={(date) => this.setState({endDate: date})}
+                        date={this.formatDate(this.state.endDate)} />
                 </div>
                 <UserList />
-                <Button raised color='primary'>Save</Button>
+                <Button raised color='primary'>{this.state.id === null ? 'Create' : 'Save'}</Button>
             </Grid>
         )
     }
