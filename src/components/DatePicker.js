@@ -30,10 +30,12 @@ class DatePicker extends Component {
     constructor () {
         super()
         this.state = {
-            date: '',
+            value: '',
             dialogOpen: false
         }
     }
+
+    formatDate (date) { return date === '' ? '' : format(date, 'ddd Do MMM YYYY', { locale: frLocale }) }
 
     @autobind
     openCalendar () { this.setState({dialogOpen: true}) }
@@ -41,29 +43,25 @@ class DatePicker extends Component {
     @autobind
     closeCalendar () { this.setState({dialogOpen: false}) }
 
-    @autobind
-    selectDate (date) {
-        console.log(date)
-        this.setState({date: format(date, 'ddd Do MMM YYYY', { locale: frLocale })})
-        this.closeCalendar()
-    }
-
     render () {
-        const { label, date, onSelect } = this.props
+        const { label, value, onChange } = this.props
+        const displayValue = this.formatDate(value)
         return (
             <div style={css.container}>
                 <Input disabled 
                     style={css.input} 
-                    value={date} 
+                    value={displayValue} 
                     placeholder={label}
                     onClick={this.openCalendar}></Input>
                 <Dialog open={this.state.dialogOpen} onRequestClose={this.closeCalendar}>
                     <InfiniteCalendar 
                         locale={locale} 
                         style={css.calendar} 
+                        selected={this.state.value}
                         onSelect={(date) => { 
                             this.closeCalendar(); 
-                            onSelect(date)} 
+                            this.setState({value: date})
+                            onChange(date)} 
                         }/>
                 </Dialog>
             </div>
