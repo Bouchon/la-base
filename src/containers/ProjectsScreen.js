@@ -9,6 +9,8 @@ import Typography from 'material-ui/Typography'
 
 import ProjectList from '../components/project/ProjectList'
 
+import { removeProject } from '../actionCreators/projects'
+
 const css = {
   wrapper: { 
     display: 'flex',
@@ -26,31 +28,22 @@ class ProjectsScreen extends Component {
     this.state = {
       project: undefined,
       onEdit: false,
-      onDelete: false,
       onCreate: false
     }
   }
 
-  @autobind
-  onEditProject(project) {
-    this.setState({project: project, onEdit: true})
-  }
-
-  @autobind
-  onDeleteProject(project) {
-    this.setState({project: project, onDelete: true})
-  }
-
-  @autobind
-  onCreateProject() {
-    this.setState({onCreate: true})
+  deleteProject ({id}) {
+    const { removeProject } = this.props
+    removeProject(id)
   }
 
   render () {
     const { projects, user } = this.props
 
+    // Add or update
     if (this.state.onCreate || this.state.onEdit) {
-      return <Redirect to={'/project/' + this.state.project.id} />
+      const projectId = this.state.onCreate ? 'create' : this.state.project.id
+      return <Redirect to={'/project/' + projectId} />
     }
 
     return (
@@ -58,11 +51,10 @@ class ProjectsScreen extends Component {
         <Typography type='display3'>Projects</Typography>
         <ProjectList 
           projects={projects}
-          onEdit={(project) => this.onEditProject(project)}
-          onDelete={(project) => this.onDeleteProject(project)}
-          onCreate={() => this.onCreateProject()} />
+          onEdit={(project) => this.setState({project: project, onEdit: true})}
+          onDelete={(project) => this.deleteProject(project)} />
         <Button fab
-          onClick={this.onCreate}
+          onClick={() => this.setState({onCreate: true})}
           style={css.addButton} 
           color='primary' 
           aria-label='add'>
@@ -75,4 +67,4 @@ class ProjectsScreen extends Component {
 
 const mapStateToProps = ({ user, projects }) => ({ user, projects })
 
-export default connect(mapStateToProps)(ProjectsScreen)
+export default connect(mapStateToProps, { removeProject })(ProjectsScreen)

@@ -1,20 +1,21 @@
 import { LOGIN_FAILURE, LOGIN_START, LOGIN_SUCCESS, LOGOUT } from '../actionCreators/user'
 
-export default function currentUser (state = { loginState: 'logged-out' }, action) {
+export default function currentUser (state = { logon: '', loginState: 'logged-out' }, action) {
+  
   switch (action.type) {
     case LOGIN_START:
-      return { loginState: 'pending' }
+      const { logon } = action.payload
+      return { loginState: 'pending', logon: logon }
 
     case LOGIN_FAILURE:
-      return { loginState: 'failure' }
+      return { ...state, loginState: 'failure' }
 
     case LOGIN_SUCCESS: {
-      const { logon } = action.payload
-      return { loginState: 'success', logon }
+      return { ...state, loginState: 'success' }
     }
 
     case LOGOUT:
-      return { loginState: 'logged-out' }
+      return { ...state, loginState: 'logged-out' }
 
     default:
       return state

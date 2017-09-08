@@ -13,8 +13,10 @@ export default function projects (state = [], action) {
       const newProject = { id, author, name, description, startDate, endDate, documents }
       if (state.find((project) => project.id === id)) {
         return state.map((project) => project.id === id ? newProject : project)
+      } else {
+        newProject.id = state.reduce((max, { id }) => max > id ? max : id, -1) + 1
+        return [...state, newProject]
       }
-      return [...state, newProject]
     }
 
     case REMOVE_PROJECT:

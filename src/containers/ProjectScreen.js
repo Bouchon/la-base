@@ -42,10 +42,12 @@ class ProjectScreen extends Component {
         console.log(this.props)
         const projectId = this.props.match.params.id
         if (projectId !== undefined) {
-            const project = this.props.projects.filter(p => p.id === parseInt(projectId)) 
+            const project = this.props.projects.filter(p => p.id === parseInt(projectId))
             this.setState({...project[0] })
             this.mode = 'edition'
         } else {
+            const { user } = this.props
+            this.setState({...this.state.project, author: user.logon})
             this.mode = 'creation'
         }
     }
@@ -54,14 +56,7 @@ class ProjectScreen extends Component {
     addOrUpdateProject () {
         const { id, author, name, description, startDate, endDate, documents } = this.state
         const { updateProject } = this.props
-        if (id === undefined) {
-            // add project
-            console.error('todo: Add Project')
-        } else {
-            // update project
-            updateProject(id, author, name, description, startDate, endDate, documents)
-        }
-
+        updateProject(id, author, name, description, startDate, endDate, documents)
         this.redirect = true
     }
 

@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux'
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import Grid from 'material-ui/Grid'
 import Hidden from 'material-ui/Hidden'
@@ -19,8 +19,12 @@ const App = () => (
     <Layout>
       <div>
         <Route exact path='/' component={HomeScreen} /> 
-        <Route exact path='/projects' component={ProjectsScreen} />
-        <Route path='/project/:id' component={ProjectScreen} />
+        <Route path='/projects' component={ProjectsScreen} />
+
+        <Switch>
+          <Route path='/project/create' component={ProjectScreen} />
+          <Route path='/project/:id' component={ProjectScreen} />
+        </Switch>
       </div>
     </Layout>
   </Provider>
