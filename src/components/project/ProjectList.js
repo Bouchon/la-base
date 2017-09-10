@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import TransitionGroup from 'react-transition-group/TransitionGroup'
-import FadeAndSlideTransition from '../transitions/FadeAndSlideTransition'
+import autobind from 'autobind-decorator'
 
 import ProjectListItem from './ProjectListItem'
 
@@ -8,16 +7,17 @@ class ProjectList extends Component {
     render () {
         const { projects, onEdit, onDelete } = this.props
         return (
-            <TransitionGroup>
+            <div>
             {
-                projects.map((project) => 
+                projects.map((project) =>
                     <ProjectListItem 
+                        key={project.id}
                         project={project}
                         onEdit={() => onEdit(project)}
                         onDelete={() => onDelete(project)} />
                 )
             }
-            </TransitionGroup>
+            </div>
         )
     }
 }

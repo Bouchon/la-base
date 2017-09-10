@@ -2,9 +2,16 @@ import React, { Component } from 'react'
 
 import Typography from 'material-ui/Typography'
 
-export class HomeScreen extends Component {
+import Demo from '../components/test/Demo'
+
+class HomeScreen extends Component {
   render () {
-    return <Typography type='display4'>Home</Typography>
+    return (
+      <div>
+        <Typography type='display4'>Home</Typography>
+        <Demo />
+      </div>
+    )
   }
 }
 
