@@ -7,9 +7,8 @@ import Collapse from 'material-ui/transitions/Collapse'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import MoreVertIcon from 'material-ui-icons/MoreVert'
-import Menu, { MenuItem } from 'material-ui/Menu'
 
-// https://material.io/color/#!/?view.left=0&view.right=0&primary.color=81D4FA&secondary.color=C5E1A5&secondary.text.color=1B5E20&primary.text.color=424242
+import ProjectMenu from './ProjectMenu'
 
 const css = {
     wrapper: {
@@ -49,7 +48,7 @@ class ProjectListItem extends Component {
     closeMenu = (event) => this.setState({menuOpen: false})
 
     render () {
-        const { project, onEdit, onDelete, onCreate } = this.props
+        const { project, onDelete } = this.props
         return (
             <Paper style={css.wrapper}>
                 <img style={css.image} src='https://fakeimg.pl/64/' />
@@ -62,14 +61,12 @@ class ProjectListItem extends Component {
                     onClick={this.openMenu}>
                     <MoreVertIcon />
                 </IconButton>
-                <Menu
+                <ProjectMenu
+                    projectId={project.id}
                     open={this.state.menuOpen}
-                    anchorEl={this.state.menuAnchor}
-                    onRequestClose={this.closeMenu}>
-                    <MenuItem onClick={onEdit}>Edit</MenuItem>
-                    <MenuItem>Dashboard</MenuItem>
-                    <MenuItem onClick={onDelete}>Delete</MenuItem>
-                </Menu>
+                    anchor={this.state.menuAnchor}
+                    onClose={() => this.setState({ menuOpen: false })}
+                    onDelete={onDelete} />
             </Paper>
         )
     }

@@ -27,7 +27,6 @@ class ProjectsScreen extends Component {
     super()
     this.state = {
       project: undefined,
-      onEdit: false,
       onCreate: false
     }
   }

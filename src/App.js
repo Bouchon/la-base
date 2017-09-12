@@ -10,6 +10,7 @@ import PrivateRoute from './containers/PrivateRoute'
 import HomeScreen from './containers/HomeScreen'
 import ProjectsScreen from './containers/ProjectsScreen'
 import ProjectScreen from './containers/ProjectScreen'
+import ProjectDashboard from './containers/ProjectDashboard'
 
 import LeftMenu from './components/LeftMenu'
 import store from './store'
@@ -20,7 +21,7 @@ const App = () => (
       <div>
         <Route exact path='/' component={HomeScreen} /> 
         <Route path='/projects' component={ProjectsScreen} />
-
+        <Route path='/dashboard/:id' component={ProjectDashboard} />
         <Switch>
           <Route path='/project/create' component={ProjectScreen} />
           <Route path='/project/:id' component={ProjectScreen} />

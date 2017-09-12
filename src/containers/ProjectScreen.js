@@ -39,7 +39,6 @@ class ProjectScreen extends Component {
     }
 
     componentDidMount () {
-        console.log(this.props)
         const projectId = this.props.match.params.id
         if (projectId !== undefined) {
             const project = this.props.projects.filter(p => p.id === parseInt(projectId))
