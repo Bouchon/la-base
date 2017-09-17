@@ -10,13 +10,6 @@ const DEFAULT_STATE = {
     loginState: 'failure',
     logon: ''
   },
-/*
-  users: [
-      { login: 'admin', name: 'Administrateur' },
-      { login: 'toto', name: 'Toto' },
-      { login: 'titi', name: 'Titi' }
-  ],*/
-
   projects: [{
     id: 0,
     author: 'admin',
@@ -52,7 +45,6 @@ const DEFAULT_STATE = {
     endDate: null,
     documents: []}]*/
 }
-
 const reduxOfflineConfig = {
   ...offlineConfig,
   persistOptions: {
@@ -72,7 +64,11 @@ if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   )
 }
 
-const store = createStore(laBaseReducer, DEFAULT_STATE, enhancer)
+const store = createStore(
+  laBaseReducer, 
+  DEFAULT_STATE, 
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 if (module.hot) {
   module.hot.accept('./reducers/laBase', () => {

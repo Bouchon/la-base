@@ -1,11 +1,34 @@
-export const LOGIN_FAILURE = '@@GOALTRACKER/AUTH_LOGIN_FAILURE'
-export const LOGIN_START = '@@GOALTRACKER/AUTH_LOGIN_START'
-export const LOGIN_SUCCESS = '@@GOALTRACKER/AUTH_LOGIN_SUCCESS'
-export const LOGOUT = '@@GOALTRACKER/AUTH_LOGOUT'
+export const LOGIN = '@@LABASE/LOGIN'
+export const LOGOUT = '@@LABASE/LOGOUT'
+export const LOGIN_SUCCESS = '@@LABASE/LOGIN_SUCCESS'
+export const LOGIN_ERROR = '@@LABASE/LOGIN_ERROR'
 
+export function login(id, password) {
+  return dispatch => {
+    setTimeout(() => {
+      if (id === admin && password === 'admin') {
+        dispatch(loginSuccess({name: admin}))
+      } else {
+        dispatch(loginError())
+      }
+    }, 3000)
+  }
+  return { type: LOGIN }
+}
+export function loginSuccess(user) {
+  return { type: LOGIN_SUCCESS, status: 'success', response: { user } }
+}
+export function loginError() {
+  return { type: LOGIN, status: 'error', response: 'Incorrect id or password'}
+}
+export function logout(user) {
+  return { type: LOGOUT }
+}
+
+/*
 export function logIn (logon, password) {
   const body = JSON.stringify({ logon, password })
-  return {
+  {
     type: LOGIN_START,
     payload: { logon: logon },
     meta: {
@@ -32,4 +55,4 @@ export function logInSuccess (logon) {
 
 export function logOut (logon) {
   return { type: LOGOUT, payload: { logon: logon } }
-}
+}*/
