@@ -40,33 +40,28 @@
       "transform-decorators-legacy"
     ]
   },
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    }
-  },
   "dependencies": {
     "autobind-decorator": "^2.1.0",
+    "connect": "^3.6.3",
     "localforage": "^1.5.0",
     "lodash.range": "^3.2.0",
     "material-ui": "^1.0.0-beta.7",
     "material-ui-icons": "^1.0.0-alpha.19",
+    "passport": "^0.4.0",
+    "passport-oauth2": "^1.4.0",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-dom": "^15.6.1",
     "react-infinite-calendar": "^2.3.1",
     "react-motion": "^0.5.1",
     "react-redux": "^5.0.5",
-    "react-redux-oauth2": "^0.5.6",
     "react-router-dom": "^4.1.2",
     "react-tap-event-plugin": "^2.0.1",
     "reduce-reducers": "^0.1.2",
     "redux": "^3.7.2",
-    "redux-offline": "^2.0.0"
+    "redux-persist": "^4.9.1",
+    "redux-thunk": "^2.2.0",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "autoprefix": "^1.0.1",
@@ -83,6 +78,13 @@
     "colors": "^1.1.2",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.7",
+    "eslint": "^4.7.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-standard": "^3.0.1",
     "express": "^4.15.3",
     "morgan": "^1.8.2",
     "offline-plugin": "^4.8.3",

@@ -37,7 +37,7 @@ class ProjectsScreen extends Component {
   }
 
   render () {
-    const { projects, user } = this.props
+    const { projects } = this.props
 
     // Add or update
     if (this.state.onCreate || this.state.onEdit) {
@@ -64,6 +64,6 @@ class ProjectsScreen extends Component {
   }
 }
 
-const mapStateToProps = ({ user, projects }) => ({ user, projects })
+const mapStateToProps = ({ projects }) => ({ projects })
 
 export default connect(mapStateToProps, { removeProject })(ProjectsScreen)

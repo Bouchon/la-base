@@ -1,14 +1,14 @@
-import { compose, createStore } from 'redux'
+import { compose, createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { persistStore, autoRehydrate } from 'redux-persist'
 import localForage from 'localforage'
-import { offline } from 'redux-offline'
-import offlineConfig from 'redux-offline/lib/defaults'
 
 import laBaseReducer from './reducers/laBase'
 
 const DEFAULT_STATE = {
-  user: {
-    loginState: 'failure',
-    logon: ''
+  login: {
+    status: 'logged-out',
+    response: ''
   },
   projects: [{
     id: 0,
@@ -18,63 +18,44 @@ const DEFAULT_STATE = {
     startDate: '',
     endDate: '',
     documents: []
-  }, {
-    id: 1,
-    author: 'admin',
-    name: 'Second projet',
-    description: 'Siquis enim militarium vel honoratorum aut nobilis inter suos rumore tenus esset insimulatus fovisse partes hostiles, iniecto onere catenarum in modum beluae trahebatur et inimico urgente vel nullo, quasi sufficiente hoc solo, quod nominatus esset aut delatus aut postulatus, capite vel multatione bonorum aut insulari solitudine damnabatur.',
-    startDate: '',
-    endDate: '',
-    documents: []
-  }, {
-    id: 2,
-    author: 'admin',
-    name: 'Troisième projet',
-    description: 'Quam ob rem ut ii qui superiores sunt submittere se debent in amicitia, sic quodam modo inferiores extollere. Sunt enim quidam qui molestas amicitias faciunt, cum ipsi se contemni putant; quod non fere contingit nisi iis qui etiam contemnendos se arbitrantur; qui hac opinione non modo verbis sed etiam opere levandi sunt.',
-    startDate: '',
-    endDate: '',
-    documents: []
   }]
-  /* tasks: [{
-    id: 0,
-    author: 'admin',
-    name: 'Première tache',
-    description: 'Description',
-    users: ['toto', 'titi'],
-    startDate: null,
-    endDate: null,
-    documents: []}]*/
 }
-const reduxOfflineConfig = {
-  ...offlineConfig,
-  persistOptions: {
-    storage: localForage
+
+export default function configureStore () {
+  const store = createStore(
+    laBaseReducer, 
+    DEFAULT_STATE, 
+    compose(
+      applyMiddleware(thunk),
+      autoRehydrate(),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+  )  
+  persistStore(store, { whitelist: ['login', 'projects'], storage: localForage })
+
+  if (module.hot) {
+    module.hot.accept('./reducers/laBase', () => {
+      const nextRootReducer = require('./reducers/laBase')
+      store.replaceReducer(nextRootReducer)
+    })
   }
+
+  return store
 }
 
-let enhancer
-if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-  enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
-    offline(reduxOfflineConfig),
-    (createStore) => (reducer, preloadedState, enhancer) => enhancer(createStore)(reducer, preloadedState)
-  )
-} else {
-  enhancer = compose(
-    offline(reduxOfflineConfig)
-  )
+/*
+const persistConfig = {
+  whitelist: [ 'login' ], // only keep user logged in :)
+  storage: localForage
 }
-
-const store = createStore(
-  laBaseReducer, 
-  DEFAULT_STATE, 
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+persistStore(store, persistConfig)
 
 if (module.hot) {
-  module.hot.accept('./reducers/laBase', () => {
-    const nextGTR = require('./reducers/laBase')
-    store.replaceReducer(nextGTR)
+  module.hot.accept('./reducers/', () => {
+    const nextRootReducer = require('./reducers/laBase')
+    store.replaceReducer(nextRootReducer)
   })
 }
 
 export default store
+*/

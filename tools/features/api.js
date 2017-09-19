@@ -31,17 +31,4 @@ router.post('/sessions', (req, res) => {
   }, 500)
 })
 
-const oauthParams = {
-  id: 'c5a0f4fcd415f0bf84bce4ce414bf3da6864805f',
-  secret: '6efbdd8f76f54bbb42825d9af8e739dcda7905f7',
-  host: 'https://gitter.im',
-  tokenPath: '/login/oauth/token',
-  authorizePath: '/login/oauth/authorize',
-  redirect: 'http://localhost:3000/gitterCode',
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-  }
-}
-
 export default router

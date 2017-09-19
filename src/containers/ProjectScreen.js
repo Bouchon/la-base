@@ -22,46 +22,55 @@ const css = {
     datePicker: { display: 'flex', justifyContent: 'space-around', padding: '10px 0' }
 }
 
+const defaultState = {
+    id: null,
+    author: null,
+    name: null,
+    description: null,
+    startDate: null,
+    endDate: null,
+    documents: null
+}
+
 class ProjectScreen extends Component {
 
     constructor () {
         super()
         this.state = { 
-            id: undefined,
-            author: '',
-            name: '',
-            description: '',
-            startDate: '',
-            endDate: '',
-            documents: []
+            project: { },
+            mode: null,
+            redirect: false
         }
-        this.redirect = false
     }
 
     componentDidMount () {
         const projectId = this.props.match.params.id
         if (projectId !== undefined) {
-            const project = this.props.projects.filter(p => p.id === parseInt(projectId))
-            this.setState({...project[0] })
-            this.mode = 'edition'
+            const project = this.props.projects.filter(p => p.id === parseInt(projectId))[0]
+            this.setState({ 
+                project: { ...project },
+                mode: 'edition'
+            })
         } else {
-            const { user } = this.props
-            this.setState({...this.state.project, author: user.logon})
-            this.mode = 'creation'
+            const { login } = this.props
+            this.setState({ 
+                project: { ...defaultState, author: login.name },
+                mode: 'creation'
+            })
         }
     }
 
     @autobind
     addOrUpdateProject () {
-        const { id, author, name, description, startDate, endDate, documents } = this.state
+        const { id, author, name, description, startDate, endDate, documents } = this.state.project
         const { updateProject } = this.props
         updateProject(id, author, name, description, startDate, endDate, documents)
-        this.redirect = true
+        this.setState({ redirect: true })
     }
 
     render () {
 
-        if (this.redirect) {
+        if (this.state.redirect) {
             return <Redirect to='/projects' />
         }
 
@@ -72,13 +81,13 @@ class ProjectScreen extends Component {
                 <Avatar style={css.projectAvatar} src='https://fakeimg.pl/128/' />
                 <TextField
                     value={this.state.name}
-                    onChange={event => this.setState({name: event.target.value})}
+                    onChange={ event => this.setState({ project: { ...this.state.project, name: event.target.value } }) }
                     label='Name' 
                     placeholder='Project name' 
                     margin='normal' />
                 <TextField multiline
                     value={this.state.description}
-                    onChange={event => this.setState({description: event.target.value})}
+                    onChange={ event => this.setState({ project: { ...this.state.project, description: event.target.value} }) }
                     rows={3}
                     label='Description' 
                     placeholder='Project description' 
@@ -87,25 +96,25 @@ class ProjectScreen extends Component {
                 <div style={css.datePicker}>
                     <DatePicker
                         value={this.state.startDate}
-                        onChange={(date) => this.setState({startDate: date})}
+                        onChange={ date => this.setState({ project: { ...this.state.project, startDate: date } }) }
                         label='Start date' />
                     <DatePicker
                         value={this.state.endDate}
-                        onChange={(date) => this.setState({endDate: date})}
+                        onChange={ date => this.setState({ project: { ...this.state.project, endDate: date } }) }
                         label='End date' />
                 </div>
                 <UserList />
                 <Button raised 
                     color='primary'
                     onClick={this.addOrUpdateProject}>
-                    {this.state.id === null ? 'Create' : 'Save'}
+                    {this.state.mode === 'creation' ? 'Create' : 'Save'}
                 </Button>
             </Grid>
         )
     }
 }
 
-const mapStateToProps = ({ user, projects }) => ({ user, projects })
+const mapStateToProps = ({ login, projects }) => ({ login, projects })
 
 export default connect(
     mapStateToProps, 

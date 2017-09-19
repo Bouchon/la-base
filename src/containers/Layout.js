@@ -45,8 +45,8 @@ class Layout extends Component {
     }
 }
 
-function mapStateToProps ({ user: { loginState } }) {
-    return { loggedIn: loginState === 'success' }
+function mapStateToProps ({ login: { status } }) {
+    return { loggedIn: status === 'success' }
 }
 
 export default connect(mapStateToProps)(Layout)

@@ -1,10 +1,12 @@
 import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
 import React, { Component } from 'react'
+
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
+import { CircularProgress } from 'material-ui/Progress'
 
 import { logIn } from '../actionCreators/user'
 
@@ -34,10 +36,9 @@ export class LoginScreen extends Component {
   }
 
   render () {
-    const { loginState } = this.props
-    const loggingIn = loginState === 'pending'
-
-
+    const { status, response } = this.props.login
+    const { logIn } = this.props
+    const loggingIn = status === 'pending'
     return (
       <form style={style.main} onSubmit={this.login}>
         <Paper style={style.container} elevation={4}>
@@ -60,13 +61,18 @@ export class LoginScreen extends Component {
               onInvalid={() => alert('invalid')}
               required
             />
-            <Button type='submit' raised color='primary' style={style.button}>{loginState}</Button>
+
+            {status === 'error' ? <Typography color='accent'>{response}</Typography> : ''}
+            
+            <Button type='submit' raised color='primary' style={style.button}>
+              { status === 'pending' ? <CircularProgress color='accent' size={14} /> : 'login' }
+            </Button>
         </Paper>
       </form>
     )
   }
 }
 
-const mapStateToProps = ({ user: { loginState } }) => ({ loginState })
+const mapStateToProps = ({ login }) => ({ login })
 
 export default connect(mapStateToProps)(LoginScreen)

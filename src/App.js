@@ -13,10 +13,10 @@ import ProjectScreen from './containers/ProjectScreen'
 import ProjectDashboard from './containers/ProjectDashboard'
 
 import LeftMenu from './components/LeftMenu'
-import store from './store'
+import configureStore from './store'
 
 const App = () => (
-  <Provider store={store}>
+  <Provider store={configureStore()}>
     <Layout>
       <div>
         <Route exact path='/' component={HomeScreen} /> 

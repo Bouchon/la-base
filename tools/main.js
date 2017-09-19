@@ -1,11 +1,13 @@
 import express from 'express'
 import { createServer } from 'http'
+import passport from 'passport'
 import logger from 'morgan'
 import { json as apiRequestParser } from 'body-parser'
 
 import 'colors'
 
 import apiServer from './features/api'
+import gitterServer from './features/gitter'
 import renderer from './features/renderer'
 import webpackServer from './features/webpack'
 
@@ -17,6 +19,7 @@ app.use(logger('dev', { skip: (req) => req.url.includes('.hot-update.') }))
 
 app.use(webpackServer)
 app.use('/api/v1', apiServer)
+app.use('/api/gitter/', gitterServer)
 app.use(renderer)
 
 server.listen(process.env.PORT || 3000, () => {
