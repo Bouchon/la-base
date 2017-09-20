@@ -8,7 +8,7 @@ import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
 import { CircularProgress } from 'material-ui/Progress'
 
-import { logIn } from '../actionCreators/user'
+import { logIn } from '../actionCreators/login'
 
 const style = {
   main: {

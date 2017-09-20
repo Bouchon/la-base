@@ -3,27 +3,38 @@ import thunk from 'redux-thunk'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import localForage from 'localforage'
 
-import laBaseReducer from './reducers/laBase'
+import rootReducer from './reducers/root'
 
 const DEFAULT_STATE = {
   login: {
     status: 'logged-out',
     response: ''
   },
-  projects: [{
-    id: 0,
-    author: 'admin',
-    name: 'Premier projet',
-    description: 'Procedente igitur mox tempore cum adventicium nihil inveniretur, relicta ora maritima in Lycaoniam adnexam Isauriae se contulerunt ibique densis intersaepientes itinera praetenturis provincialium et viatorum opibus pascebantur.',
-    startDate: '',
-    endDate: '',
-    documents: []
-  }]
+  users: {
+    '0': { id: 0, login: 'admin', firstname: 'admin', lastname: 'admin', email: 'admin@admin.com' },
+    '1': { id: 1, login: 'test', firstname: 'test', lastname: 'test', email: 'admin@admin.com' }
+  },
+  projects: {
+    '0': { id: 0, authorId: 0, name: 'Project manager', description: 'Description', startDate: '', endDate: '' }
+  },
+  tasks: {
+    '0': { id: 0, authorId: 0, projectId: 0, name: 'Task 1', description: 'Description 1', status: 'todo', startDate: '', endDate: '' },
+    '1': { id: 1, authorId: 0, projectId: 0, name: 'Task 2', description: 'Description 2', status: 'todo', startDate: '', endDate: '' }
+  },
+  usersProjects: {
+    '0': { id: 0, userId: 0, projectId: 0 },
+    '1': { id: 1, userId: 1, projectId: 0 }
+  },
+  usersTasks: {
+    '0': { id: 0, userId: 0, taskId: 0 },
+    '1': { id: 1, userId: 1, taskId: 0 },
+    '2': { id: 2, userId: 1, taskId: 1 }
+  }
 }
 
 export default function configureStore () {
   const store = createStore(
-    laBaseReducer, 
+    rootReducer, 
     DEFAULT_STATE, 
     compose(
       applyMiddleware(thunk),
@@ -34,28 +45,11 @@ export default function configureStore () {
   persistStore(store, { whitelist: ['login', 'projects'], storage: localForage })
 
   if (module.hot) {
-    module.hot.accept('./reducers/laBase', () => {
-      const nextRootReducer = require('./reducers/laBase')
+    module.hot.accept('./reducers/root', () => {
+      const nextRootReducer = require('./reducers/root')
       store.replaceReducer(nextRootReducer)
     })
   }
 
   return store
 }
-
-/*
-const persistConfig = {
-  whitelist: [ 'login' ], // only keep user logged in :)
-  storage: localForage
-}
-persistStore(store, persistConfig)
-
-if (module.hot) {
-  module.hot.accept('./reducers/', () => {
-    const nextRootReducer = require('./reducers/laBase')
-    store.replaceReducer(nextRootReducer)
-  })
-}
-
-export default store
-*/

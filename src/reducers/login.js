@@ -1,4 +1,4 @@
-import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../actionCreators/user'
+import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../actionCreators/login'
 /*LOGIN_FAILURE, LOGIN_START, LOGIN_SUCCESS, LOGOUT*/
 
 export default function login (state = { status: 'logged-out' }, action) {

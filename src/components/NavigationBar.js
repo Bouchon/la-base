@@ -16,7 +16,7 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 
 import LeftMenu from './LeftMenu'
 
-import { logOut } from '../actionCreators/user'
+import { logOut } from '../actionCreators/login'
 
 const css = {
   title: { flex: 1 }

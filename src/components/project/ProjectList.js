@@ -9,7 +9,7 @@ class ProjectList extends Component {
         return (
             <div>
             {
-                projects.map((project) =>
+                Object.values(projects).map((project) =>
                     <ProjectListItem 
                         key={project.id}
                         project={project}

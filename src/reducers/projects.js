@@ -1,26 +1,28 @@
+import _object from 'lodash/fp/object'
 import { ADD_PROJECT, UPDATE_PROJECT, REMOVE_PROJECT } from '../actionCreators/projects'
 
-export default function projects (state = [], action) {
+export default function projects (state = {}, action) {
+  console.log(action.payload)
   switch (action.type) {
     case ADD_PROJECT: {
-      const { author, name, description, startDate, endDate, documents } = action.payload
-      const id = state.reduce((max, { id }) => max > id ? max : id, -1) + 1
-      return [...state, { id, author, name, description, startDate, endDate, documents }]
+      const id = Object.values(state).reduce((max, { id }) => max > id ? max: id, -1) + 1
+      const { project } = action.payload
+      project.id = id
+      return { ...state, [id]: project }  
     }
 
     case UPDATE_PROJECT: {
-      const { id, author, name, description, startDate, endDate, documents } = action.payload
-      const newProject = { id, author, name, description, startDate, endDate, documents }
-      if (state.find((project) => project.id === id)) {
-        return state.map((project) => project.id === id ? newProject : project)
-      } else {
-        newProject.id = state.reduce((max, { id }) => max > id ? max : id, -1) + 1
-        return [...state, newProject]
-      }
+      const projects = { ...state }
+      projects[action.payload.id] = action.payload.project
+      return projects
     }
 
     case REMOVE_PROJECT:
-      return state.filter(({ id }) => id !== action.payload.id)
+      const newState = { ...state }
+      console.log(newState)
+      const result = _object.omit(newState, [action.payload.id])
+      console.log(result)
+      return result
 
     default:
       return state

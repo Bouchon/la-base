@@ -38,7 +38,7 @@ class ProjectsScreen extends Component {
 
   render () {
     const { projects } = this.props
-
+    
     // Add or update
     if (this.state.onCreate || this.state.onEdit) {
       const projectId = this.state.onCreate ? 'create' : this.state.project.id

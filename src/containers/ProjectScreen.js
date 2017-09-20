@@ -61,10 +61,16 @@ class ProjectScreen extends Component {
     }
 
     @autobind
-    addOrUpdateProject () {
-        const { id, author, name, description, startDate, endDate, documents } = this.state.project
+    updateProject () {
         const { updateProject } = this.props
-        updateProject(id, author, name, description, startDate, endDate, documents)
+        updateProject(this.state.project)
+        this.setState({ redirect: true })
+    }
+
+    @autobind 
+    addProject () {
+        const { addProject } = this.props
+        addProject(this.state.project)
         this.setState({ redirect: true })
     }
 
@@ -75,6 +81,8 @@ class ProjectScreen extends Component {
         }
 
         const title = this.mode === 'edition' ? 'Edit' : 'Create'
+        const submitButton = <Button raised color='primary' onClick={this.mode === 'edition' ? this.updateProject : this.addProject}>{title}</Button>
+
         return (
             <Grid style={css.container} container direction='column'>
                 <Typography type='display2'>{title} Project</Typography>
@@ -104,11 +112,7 @@ class ProjectScreen extends Component {
                         label='End date' />
                 </div>
                 <UserList />
-                <Button raised 
-                    color='primary'
-                    onClick={this.addOrUpdateProject}>
-                    {this.state.mode === 'creation' ? 'Create' : 'Save'}
-                </Button>
+                { submitButton }
             </Grid>
         )
     }

@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
