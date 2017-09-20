@@ -18,10 +18,12 @@ export default function projects (state = {}, action) {
     }
 
     case REMOVE_PROJECT:
-      const newState = { ...state }
-      console.log(newState)
-      const result = _object.omit(newState, [action.payload.id])
-      console.log(result)
+      let result = {}
+      for (let i=0; i<Object.values(state).length; i++) {
+        const project = Object.values(state)[i]
+        if (project.id !== action.payload.id)
+          result[project.id] = project
+      }
       return result
 
     default:

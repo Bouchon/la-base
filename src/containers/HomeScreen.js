@@ -10,7 +10,6 @@ class HomeScreen extends Component {
     return (
       <div>
         <Typography type='display3'>Home</Typography>
-        <Demo />
       </div>
     )
   }

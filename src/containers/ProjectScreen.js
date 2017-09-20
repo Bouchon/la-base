@@ -24,7 +24,7 @@ const css = {
 
 const defaultState = {
     id: null,
-    author: null,
+    authorId: null,
     name: null,
     description: null,
     startDate: null,
@@ -37,27 +37,19 @@ class ProjectScreen extends Component {
     constructor () {
         super()
         this.state = { 
-            project: { },
-            mode: null,
+            project: {},
+            mode: {},
             redirect: false
         }
     }
 
-    componentDidMount () {
+    componentWillMount () {
+        const projects = this.props.projects
         const projectId = this.props.match.params.id
-        if (projectId !== undefined) {
-            const project = this.props.projects.filter(p => p.id === parseInt(projectId))[0]
-            this.setState({ 
-                project: { ...project },
-                mode: 'edition'
-            })
-        } else {
-            const { login } = this.props
-            this.setState({ 
-                project: { ...defaultState, author: login.name },
-                mode: 'creation'
-            })
-        }
+        const mode = projectId === undefined ? 'create' : 'edit'
+        const project = projectId === undefined ? defaultState : projects[projectId]
+
+        this.setState({project, mode})
     }
 
     @autobind
@@ -75,8 +67,7 @@ class ProjectScreen extends Component {
     }
 
     render () {
-
-        if (this.state.redirect) {
+        if (this.state.redirect === true) {
             return <Redirect to='/projects' />
         }
 
@@ -88,13 +79,13 @@ class ProjectScreen extends Component {
                 <Typography type='display2'>{title} Project</Typography>
                 <Avatar style={css.projectAvatar} src='https://fakeimg.pl/128/' />
                 <TextField
-                    value={this.state.name}
+                    value={this.state.project.name}
                     onChange={ event => this.setState({ project: { ...this.state.project, name: event.target.value } }) }
                     label='Name' 
                     placeholder='Project name' 
                     margin='normal' />
                 <TextField multiline
-                    value={this.state.description}
+                    value={this.state.project.description}
                     onChange={ event => this.setState({ project: { ...this.state.project, description: event.target.value} }) }
                     rows={3}
                     label='Description' 
@@ -103,11 +94,11 @@ class ProjectScreen extends Component {
                     
                 <div style={css.datePicker}>
                     <DatePicker
-                        value={this.state.startDate}
+                        value={this.state.project.startDate}
                         onChange={ date => this.setState({ project: { ...this.state.project, startDate: date } }) }
                         label='Start date' />
                     <DatePicker
-                        value={this.state.endDate}
+                        value={this.state.project.endDate}
                         onChange={ date => this.setState({ project: { ...this.state.project, endDate: date } }) }
                         label='End date' />
                 </div>
