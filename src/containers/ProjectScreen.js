@@ -23,13 +23,12 @@ const css = {
 }
 
 const defaultState = {
-    id: null,
-    authorId: null,
-    name: null,
-    description: null,
-    startDate: null,
-    endDate: null,
-    documents: null
+    id: undefined,
+    authorId: undefined,
+    name: '',
+    description: '',
+    startDate: '',
+    endDate: '',
 }
 
 class ProjectScreen extends Component {
@@ -37,7 +36,7 @@ class ProjectScreen extends Component {
     constructor () {
         super()
         this.state = { 
-            project: {},
+            project: defaultState,
             mode: {},
             redirect: false
         }
@@ -46,10 +45,13 @@ class ProjectScreen extends Component {
     componentWillMount () {
         const projects = this.props.projects
         const projectId = this.props.match.params.id
-        const mode = projectId === undefined ? 'create' : 'edit'
-        const project = projectId === undefined ? defaultState : projects[projectId]
-
-        this.setState({project, mode})
+        if (projectId !== undefined) {
+            this.setState({project: projects[projectId], mode: 'edit'})
+        } else {
+            const login = this.props.login
+            this.setState({...project, authorId: login.response.name})
+            this.setState({mode: 'create'})
+        }
     }
 
     @autobind
@@ -67,6 +69,7 @@ class ProjectScreen extends Component {
     }
 
     render () {
+        console.log(this.state.project)
         if (this.state.redirect === true) {
             return <Redirect to='/projects' />
         }
